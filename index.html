@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI 旅遊助理（含動態天氣卡）</title>
+<style>
+  /* 基本頁面 */
+  :root{
+    --bg:#0f1724;
+    --panel-bg: rgba(255,255,255,0.06);
+    --glass: rgba(255,255,255,0.07);
+  }
+  body{ margin:0; font-family: "Segoe UI", Roboto, "Noto Sans TC", sans-serif; background:var(--bg); color:#fff; }
+
+  /* chat widget container */
+  .chat-widget { position:fixed; right:20px; bottom:20px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  .chat-btn { background:linear-gradient(135deg,#ffcc70,#ff7eb3); border:none; border-radius:50px; padding:12px 18px; font-weight:700; font-size:15px; cursor:pointer; color:#111; box-shadow:0 8px 30px rgba(0,0,0,0.45); }
+  .chat-panel { position:fixed; right:20px; bottom:80px; width:380px; max-width:92vw; background:var(--panel-bg); backdrop-filter: blur(12px) saturate(180%); border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; opacity:0; transform:translateY(20px); pointer-events:none; visibility:hidden; transition:opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+  .chat-panel.open{ opacity:1; transform:translateY(0); pointer-events:auto; visibility:visible; transition:opacity .28s ease, transform .28s ease; }
+  .chat-header { padding:12px 14px; display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.25); border-bottom:1px solid rgba(255,255,255,0.03); }
+  .brand{ font-weight:800; font-size:16px; letter-spacing:0.4px; }
+  .desc{ font-size:12px; color:rgba(255,255,255,0.75); }
+  .chat-area{ padding:14px; display:flex; flex-direction:column; gap:12px; min-height:220px; max-height:56vh; overflow-y:auto; box-sizing:border-box; }
+  .bubble{ max-width:90%; padding:12px 14px; border-radius:16px; line-height:1.4; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,0.35); word-wrap:break-word; background:linear-gradient(135deg,#84fab0,#8fd3f4); color:#000; }
+  .bubble.user{ align-self:flex-end; background:linear-gradient(135deg,#a8ff78,#78ffd6); color:#000; border-bottom-right-radius:6px; }
+  .bubble.bot{ align-self:flex-start; background:linear-gradient(135deg,#ffffff11,#ffffff06); color:#fff; border-bottom-left-radius:6px; }
+  .typing{ font-size:13px; color:rgba(255,255,255,0.85); padding-left:6px; }
+
+  .quick-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .quick-btn{ background:rgba(255,255,255,0.1); border:none; border-radius:10px; padding:8px 12px; font-size:13px; cursor:pointer; color:#fff; }
+  .chat-input-row{ display:flex; gap:8px; padding:12px; border-top:1px solid rgba(255,255,255,0.04); background:rgba(0,0,0,0.22); }
+  #chatInput{ flex:1; min-height:42px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; outline:none; resize:none; }
+  #sendChatBtn{ padding:10px 14px; border-radius:12px; border:none; background:linear-gradient(135deg,#ffcc70,#ff7eb3); color:#111; font-weight:700; cursor:pointer; min-width:70px; }
+
+  /* form bubble */
+  .form-bubble{ background:linear-gradient(135deg,#ffffff10,#ffffff05); padding:12px; border-radius:14px; width:100%; box-sizing:border-box; }
+  .form-bubble input,.form-bubble select{ padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:transparent; color:#fff; font-size:13px; }
+
+  /* --- Weather card bubble (整合版) --- */
+  .bubble.weather { padding:6px; background:transparent; box-shadow:none; border-radius:0; }
+  .weather-bubble {
+    display:flex;
+    width:320px;
+    max-width:92vw;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 28px rgba(0,0,0,0.5);
+    border:1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  }
+  .weather-left {
+    flex:1;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    color:#fff;
+    background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));
+  }
+  .weather-time{ font-size:20px; font-weight:700; }
+  .weather-location{ font-size:12px; opacity:0.9; margin-top:6px; }
+  .weather-right {
+    flex:1.2;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    color:#fff;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+  }
+  .weather-temp{ font-size:28px; font-weight:700; margin-bottom:6px; text-shadow:0 4px 18px rgba(0,0,0,0.4);}
+  .weather-status{ font-size:14px; opacity:0.96; margin-bottom:6px; text-shadow:0 4px 10px rgba(0,0,0,0.3); }
+  .weather-extra{ font-size:12px; opacity:0.92; }
+  .weather-icon { position:absolute; right:12px; top:10px; font-size:28px; opacity:0.95; text-shadow:0 6px 18px rgba(0,0,0,0.45); }
+
+  /* small screen */
+  @media (max-width:600px){
+    .chat-panel{ right:8px; bottom:70px; width:calc(100% - 16px); border-radius:12px; }
+    .weather-bubble{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-widget">
+  <button class="chat-btn" id="chatToggle" aria-expanded="false" aria-controls="travelChatPanel">💬 旅遊助理</button>
+
+  <div class="chat-panel" id="travelChatPanel" role="dialog" aria-label="Travel Assistant" aria-modal="false">
+    <div class="chat-header">
+      <div>
+        <div class="brand">AI 旅遊助理 ✈️</div>
+        <div class="desc">可詢問景點、叫 Uber、行程建議</div>
+      </div>
+      <div><button id="closeChatPanel" style="background:none;border:none;color:#fff;cursor:pointer;font-weight:700">✕</button></div>
+    </div>
+
+    <div class="chat-area" id="chatArea" aria-live="polite"></div>
+
+    <div style="padding:0 12px 10px;">
+      <div class="quick-actions" id="quickActions" role="toolbar" aria-label="Quick actions">
+        <button class="quick-btn" data-msg="建議景點">建議景點</button>
+        <button class="quick-btn" data-msg="叫 Uber">叫 Uber</button>
+        <button class="quick-btn" data-msg="規劃行程">規劃行程</button>
+        <button class="quick-btn" id="btnUseGeo">我的位置（GPS）</button>
+        <button class="quick-btn" data-msg="我的位置">輸入地址</button>
+      </div>
+
+      <div class="chat-input-row">
+        <textarea id="chatInput" placeholder="輸入您的旅遊問題..." aria-label="Message input"></textarea>
+        <button id="sendChatBtn">傳送</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+/* =========================
+   設定 — 把這裡換成你的 Key
+   請務必在 GA Console 啟用 Weather API 與 Geocoding 並限制金鑰
+   ========================= */
+const GOOGLE_API_KEY = "AIzaSyCk6dUdKEr5pjhPN1h8sB0EX7_HiDCMbAE";
+
+/* -------------------------
+   DOM refs
+   ------------------------- */
+const chatToggle = document.getElementById('chatToggle');
+const chatPanel = document.getElementById('travelChatPanel');
+const closeChatPanel = document.getElementById('closeChatPanel');
+const chatArea = document.getElementById('chatArea');
+const chatInput = document.getElementById('chatInput');
+const sendChatBtn = document.getElementById('sendChatBtn');
+const quickActions = document.getElementById('quickActions');
+const btnUseGeo = document.getElementById('btnUseGeo');
+
+/* -------------------------
+   Panel toggles
+   ------------------------- */
+function openChat(){ chatPanel.classList.add('open'); chatToggle.setAttribute('aria-expanded','true'); chatInput.focus(); }
+function closeChat(){ chatPanel.classList.remove('open'); chatToggle.setAttribute('aria-expanded','false'); }
+chatToggle.addEventListener('click', ()=>{ chatPanel.classList.contains('open') ? closeChat() : openChat(); });
+closeChatPanel.addEventListener('click', closeChat);
+
+/* -------------------------
+   Helpers
+   ------------------------- */
+function scrollToBottom(){ chatArea.scrollTop = chatArea.scrollHeight; }
+function createBubble(who='bot'){ const div=document.createElement('div'); div.className='bubble '+(who==='user'?'user':'bot'); return div; }
+function appendTextBubble(text, who='bot'){ const div=createBubble(who); div.textContent=text; chatArea.appendChild(div); scrollToBottom(); return div; }
+
+/* -------------------------
+   Travel AI / placeholder (本範例會用假回覆)
+   你可將 travelBotAI 改為呼叫後端或 OpenAI
+   ------------------------- */
+async function travelBotAI(userMessage, coords=null){
+  // placeholder - 回傳簡短回覆
+  return `收到：「${userMessage}」。我可以協助您規劃或查詢天氣、路線等。`;
+}
+
+/* -------------------------
+   Google Geocoding 函式（地址 -> 座標）
+   ------------------------- */
+async function getGeocodeJSON(address){
+  try {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_API_KEY}`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error(`Geocode HTTP ${res.status}`);
+    const data = await res.json();
+    return data;
+  } catch(err){
+    console.error("Geocode error:", err);
+    return null;
+  }
+}
+
+/* -------------------------
+   Google Weather API - currentConditions:lookup
+   POST 要帶 location 物件
+   ------------------------- */
+async function fetchWeather(latitude, longitude) {
+  const url = `https://weather.googleapis.com/v1/currentConditions:lookup?key=${GOOGLE_API_KEY}`;
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        location: {
+          // API 接受 object 包含 latitude, longitude
+          latitude: Number(latitude),
+          longitude: Number(longitude)
+        }
+      })
+    });
+
+    if (!res.ok) {
+      // 若 403/401 或 CORS 問題，前端可能無法直接使用 Google Weather API
+      throw new Error(`Weather HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    // Google Weather API 回傳格式不斷演進，這裡做較保守的解析
+    // 嘗試常見欄位，否則回傳原始 JSON 供除錯
+    const cond = data?.currentConditions ?? data?.current ?? data;
+    // 取值示例（視實際回傳調整）
+    const desc = cond?.weatherCondition?.description?.text ?? cond?.text ?? cond?.condition ?? cond?.weather?.[0]?.description ?? null;
+    const temp = cond?.temperature?.degrees ?? cond?.tempC ?? cond?.temperatureC ?? cond?.temperature?.value ?? null;
+    const feels = cond?.feelsLikeTemperature?.degrees ?? cond?.apparentTemperature ?? null;
+    const humidity = cond?.relativeHumidity ?? cond?.humidity ?? null;
+    const windSpeed = cond?.wind?.speed?.value ?? cond?.windSpeed ?? null;
+    const windUnit = cond?.wind?.speed?.unit ?? cond?.windSpeedUnit ?? "m/s";
+    const windDir = cond?.wind?.direction?.cardinal ?? cond?.windDirection ?? null;
+
+    return {
+      raw: data,
+      description: desc || "未知",
+      temperature: (typeof temp === 'number' ? temp : (temp ? String(temp) : "未知")),
+      feelsLike: (typeof feels === 'number' ? feels : (feels ? String(feels) : "未知")),
+      humidity: humidity ?? "未知",
+      wind: windSpeed ? `${windSpeed} ${windUnit}` : "未知",
+      windDir: windDir ?? "未知"
+    };
+
+  } catch (err) {
+    console.error("Weather fetch error:", err);
+    return { error: true, message: err.message || String(err) };
+  }
+}
+
+/* -------------------------
+   Weather 背景映射（關鍵字 → 圖片/Emoji）
+   這裡使用一些公開圖示 URL（可自行替換）
+   ------------------------- */
+const WEATHER_BG = {
+  clear: {
+    img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=60",
+    emoji: "☀️"
+  },
+  sunny: {
+    img: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1200&q=60",
+    emoji: "☀️"
+  },
+  cloudy: {
+    img: "https://images.unsplash.com/photo-1501975558163-34a7f6e7f3f1?auto=format&fit=crop&w=1200&q=60",
+    emoji: "🌥️"
+  },
+  rain: {
+    img: "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1200&q=60",
+    emoji: "🌧️"
+  },
+  snow: {
+    img: "https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?auto=format&fit=crop&w=1200&q=60",
+    emoji: "❄️"
+  },
+  fog: {
+    img: "https://images.unsplash.com/photo-1502082553048-2672c00a3f85?auto=format&fit=crop&w=1200&q=60",
+    emoji: "🌫️"
+  },
+  default: {
+    img: "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=60",
+    emoji: "🌤️"
+  }
+};
+
+/* 根據描述文字判定 key */
+function mapConditionToKey(desc){
+  if(!desc) return "default";
+  const s = String(desc).toLowerCase();
+  if(s.includes("clear") || s.includes("sun") || s.includes("晴") ) return "clear";
+  if(s.includes("sun") || s.includes("sunny")) return "sunny";
+  if(s.includes("cloud") || s.includes("overcast") || s.includes("多雲") ) return "cloudy";
+  if(s.includes("rain") || s.includes("drizzle") || s.includes("雨") ) return "rain";
+  if(s.includes("snow") || s.includes("雪")) return "snow";
+  if(s.includes("fog") || s.includes("mist") || s.includes("haze") || s.includes("霧") ) return "fog";
+  return "default";
+}
+
+/* -------------------------
+   將天氣卡加入聊天區域（整合版）
+   data: {formattedAddress, weatherResult}
+   ------------------------- */
+function appendWeatherBubble({ formattedAddress, weatherResult }) {
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble bot weather';
+
+  const card = document.createElement('div');
+  card.className = 'weather-bubble';
+
+  const descKey = mapConditionToKey(weatherResult.description);
+  const bg = WEATHER_BG[descKey] ?? WEATHER_BG.default;
+
+  // 時間與日期（使用使用者時區）
+  const now = new Date();
+  const timeLabel = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+  const dateLabel = now.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric', weekday: 'short' });
+
+  card.innerHTML = `
+    <div class="weather-left">
+      <div>
+        <div class="weather-time">${timeLabel}</div>
+        <div class="weather-location">${formattedAddress}<br><span style="opacity:0.9">${dateLabel}</span></div>
+      </div>
+      <div style="opacity:0.95; font-size:14px; margin-top:6px;">AI 旅遊助理</div>
+    </div>
+
+    <div class="weather-right" style="background-image:url('${bg.img}')">
+      <div class="weather-temp">${weatherResult.temperature}°</div>
+      <div class="weather-status">${bg.emoji} ${weatherResult.description}</div>
+      <div class="weather-extra">體感：${weatherResult.feelsLike}° • 濕度：${weatherResult.humidity}% • 風：${weatherResult.wind} ${weatherResult.windDir ?? ''}</div>
+      <div class="weather-icon">${bg.emoji}</div>
+    </div>
+  `;
+
+  bubble.appendChild(card);
+  chatArea.appendChild(bubble);
+  scrollToBottom();
+}
+
+/* -------------------------
+   Address form bubble（與你原本的流程整合）
+   ------------------------- */
+function appendAddressFormBubble() {
+  const bubble = createBubble('bot');
+  const wrapper = document.createElement('div');
+  wrapper.className = 'form-bubble';
+  wrapper.innerHTML = `
+    <form id="addressForm">
+      <label for="userAddress">請輸入您的地址</label>
+      <input id="userAddress" type="text" placeholder="例如：台北市大同區寧夏路" required />
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+        <button type="button" class="btn-ghost" id="cancelAddressForm" style="background:none;border:1px solid rgba(255,255,255,0.08);padding:6px 10px;border-radius:8px;color:#fff;">取消</button>
+        <button type="submit" class="btn-primary" style="padding:6px 10px;border-radius:8px;border:none;font-weight:700;">送出</button>
+      </div>
+    </form>
+  `;
+  bubble.appendChild(wrapper);
+  chatArea.appendChild(bubble);
+  scrollToBottom();
+
+  const form = wrapper.querySelector('#addressForm');
+  const cancelBtn = wrapper.querySelector('#cancelAddressForm');
+  const input = wrapper.querySelector('#userAddress');
+  input.focus();
+
+  cancelBtn.addEventListener('click', () => bubble.remove());
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const address = input.value.trim();
+    if(!address) return;
+    bubble.remove();
+
+    appendTextBubble('您：我的位置是 ' + address, 'user');
+    const typing = appendTextBubble('旅遊助理正在查詢您的座標...', 'bot');
+
+    const result = await getGeocodeJSON(address);
+    typing.remove();
+
+    if(result && result.status === 'OK' && result.results && result.results.length>0){
+      const geo = result.results[0].geometry.location;
+      const formatted = result.results[0].formatted_address;
+      localStorage.setItem('userAddress', formatted);
+      localStorage.setItem('userCoords', JSON.stringify({ latitude: geo.lat, longitude: geo.lng }));
+
+      appendTextBubble(`旅遊助理：已找到地址「${formatted}」，緯度 ${geo.lat}，經度 ${geo.lng}`, 'bot');
+
+      // 取得天氣並顯示天氣卡
+      const weatherRes = await fetchWeather(geo.lat, geo.lng);
+      if(weatherRes?.error){
+        appendTextBubble(`抱歉，無法取得天氣：${weatherRes.message}`, 'bot');
+      } else {
+        appendWeatherBubble({ formattedAddress: formatted, weatherResult: weatherRes });
+      }
+
+    } else {
+      appendTextBubble('旅遊助理：抱歉，無法找到該地址的座標，請確認地址是否正確。', 'bot');
+    }
+  });
+}
+
+/* -------------------------
+   使用瀏覽器 GPS 取得位置並顯示天氣
+   ------------------------- */
+btnUseGeo.addEventListener('click', ()=> {
+  appendTextBubble('您：使用 GPS 定位', 'user');
+  appendTextBubble('旅遊助理：正在嘗試取得您的位置（需要您的允許）', 'bot');
+
+  if(!navigator.geolocation){
+    appendTextBubble('瀏覽器不支援地理定位。', 'bot');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async (pos)=>{
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    // 反向地理編碼（簡單顯示經緯度為位置）
+    const formatted = `緯度 ${lat.toFixed(5)}, 經度 ${lng.toFixed(5)}`;
+    localStorage.setItem('userCoords', JSON.stringify({ latitude: lat, longitude: lng}));
+    localStorage.setItem('userAddress', formatted);
+
+    appendTextBubble(`旅遊助理：取得您的座標 ${formatted}`, 'bot');
+
+    const weatherRes = await fetchWeather(lat, lng);
+    if(weatherRes?.error){
+      appendTextBubble(`抱歉，無法取得天氣：${weatherRes.message}`, 'bot');
+    } else {
+      appendWeatherBubble({ formattedAddress: formatted, weatherResult: weatherRes });
+    }
+  }, (err)=>{
+    console.error("geo error", err);
+    appendTextBubble('旅遊助理：無法取得 GPS 位置（使用者拒絕或裝置不支援）。', 'bot');
+  }, { enableHighAccuracy: false, timeout: 10000 });
+});
+
+/* -------------------------
+   Itinerary form（簡化）
+   ------------------------- */
+function appendItineraryFormBubble(){
+  const existing = chatArea.querySelector('.form-bubble'); if(existing) existing.closest('.bubble').remove();
+  const bubble = createBubble('bot');
+  const wrapper = document.createElement('div'); wrapper.className='form-bubble';
+  wrapper.innerHTML = `<form id="itineraryForm">
+    <label for="dest">目的地</label>
+    <input id="dest" name="dest" type="text" placeholder="城市或景點" required />
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <input id="startDate" type="date" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);"/>
+      <input id="days" type="number" min="1" value="2" style="width:80px;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);"/>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+      <button type="button" id="cancelForm" style="background:none;border:1px solid rgba(255,255,255,0.06);padding:6px 10px;border-radius:8px;color:#fff;">取消</button>
+      <button type="submit" style="padding:6px 10px;border-radius:8px;border:none;font-weight:700;">開始規劃</button>
+    </div>
+  </form>`;
+  bubble.appendChild(wrapper); chatArea.appendChild(bubble); scrollToBottom();
+  wrapper.querySelector('#dest').focus();
+  wrapper.querySelector('#cancelForm').addEventListener('click', ()=>bubble.remove());
+  wrapper.querySelector('form').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const f=e.target;
+    const dest=f.dest.value.trim();
+    if(!dest){ f.dest.focus(); return; }
+    bubble.remove();
+    appendTextBubble(`您：想去 ${dest}，出發日期 ${f.startDate.value || '未指定'}，${f.days.value} 天`, 'user');
+    const typing = appendTextBubble('旅遊助理正在為您規劃行程...', 'bot');
+    const reply = await travelBotAI(`規劃 ${dest} 行程`); // 可改為實際的 AI 串接
+    typing.remove();
+    appendTextBubble('旅遊助理：' + reply, 'bot');
+  });
+}
+
+/* -------------------------
+   Quick actions
+   ------------------------- */
+quickActions.addEventListener('click', e=>{
+  const btn = e.target.closest('.quick-btn');
+  if(!btn) return;
+  const action = btn.dataset?.msg;
+  if(action === '規劃行程'){ appendItineraryFormBubble(); return; }
+  if(action === '我的位置'){ appendAddressFormBubble(); return; }
+  if(action === '叫 Uber'){ appendTextBubble('您：叫 Uber', 'user'); appendTextBubble('旅遊助理：抱歉，示範版尚未串接 Uber API。', 'bot'); return; }
+  if(action === '建議景點'){ appendTextBubble('您：建議景點', 'user'); appendTextBubble('旅遊助理：您想要哪個城市或風格的景點？', 'bot'); return; }
+});
+
+/* -------------------------
+   Send message
+   ------------------------- */
+async function sendUserMessage(text){
+  appendTextBubble('您：'+text,'user');
+  chatInput.value='';
+  const typing = appendTextBubble('旅遊助理正在輸入...','bot');
+  const reply = await travelBotAI(text);
+  typing.remove();
+  appendTextBubble('旅遊助理：'+reply,'bot');
+}
+
+sendChatBtn.addEventListener('click', ()=>{ const t=chatInput.value.trim(); if(t) sendUserMessage(t); });
+chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChatBtn.click(); } });
+
+/* -------------------------
+   初始問候
+   ------------------------- */
+appendTextBubble("旅遊助理：您好！我可以協助您查詢景點、叫 Uber、規劃行程，或輸入/使用您的位置以獲取座標與天氣。",'bot');
+
+</script>
+</body>
+</html>

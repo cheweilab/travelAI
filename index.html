@@ -176,53 +176,29 @@ async function getGeocodeJSON(address){
 }
 
 /* -------------------------
-   Google Weather API - currentConditions:lookup
-   POST 要帶 location 物件
+   WeatherAPI.com - 取得天氣資料
    ------------------------- */
 async function fetchWeather(latitude, longitude) {
-  const url = `https://weather.googleapis.com/v1/currentConditions:lookup?key=${GOOGLE_API_KEY}`;
+  const APIKEY = "73027c13be03423c80d61237251111";
+  const q = `${latitude},${longitude}`;
+  const url = `https://api.weatherapi.com/v1/current.json?key=${APIKEY}&q=${encodeURIComponent(q)}&aqi=no`;
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        location: {
-          // API 接受 object 包含 latitude, longitude
-          latitude: Number(latitude),
-          longitude: Number(longitude)
-        }
-      })
-    });
-
-    if (!res.ok) {
-      // 若 403/401 或 CORS 問題，前端可能無法直接使用 Google Weather API
-      throw new Error(`Weather HTTP ${res.status}`);
-    }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`WeatherAPI HTTP ${res.status}`);
 
     const data = await res.json();
-    // Google Weather API 回傳格式不斷演進，這裡做較保守的解析
-    // 嘗試常見欄位，否則回傳原始 JSON 供除錯
-    const cond = data?.currentConditions ?? data?.current ?? data;
-    // 取值示例（視實際回傳調整）
-    const desc = cond?.weatherCondition?.description?.text ?? cond?.text ?? cond?.condition ?? cond?.weather?.[0]?.description ?? null;
-    const temp = cond?.temperature?.degrees ?? cond?.tempC ?? cond?.temperatureC ?? cond?.temperature?.value ?? null;
-    const feels = cond?.feelsLikeTemperature?.degrees ?? cond?.apparentTemperature ?? null;
-    const humidity = cond?.relativeHumidity ?? cond?.humidity ?? null;
-    const windSpeed = cond?.wind?.speed?.value ?? cond?.windSpeed ?? null;
-    const windUnit = cond?.wind?.speed?.unit ?? cond?.windSpeedUnit ?? "m/s";
-    const windDir = cond?.wind?.direction?.cardinal ?? cond?.windDirection ?? null;
+    const current = data.current;
 
     return {
       raw: data,
-      description: desc || "未知",
-      temperature: (typeof temp === 'number' ? temp : (temp ? String(temp) : "未知")),
-      feelsLike: (typeof feels === 'number' ? feels : (feels ? String(feels) : "未知")),
-      humidity: humidity ?? "未知",
-      wind: windSpeed ? `${windSpeed} ${windUnit}` : "未知",
-      windDir: windDir ?? "未知"
+      description: current.condition.text,
+      temperature: current.temp_c,
+      feelsLike: current.feelslike_c,
+      humidity: current.humidity,
+      wind: `${current.wind_kph} kph`,
+      windDir: current.wind_dir
     };
-
   } catch (err) {
     console.error("Weather fetch error:", err);
     return { error: true, message: err.message || String(err) };

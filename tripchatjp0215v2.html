@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taiwan AI Travel Assistant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.poster {
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 2 / 3;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 235, 0, 0.85);
+  z-index: 2;
+}
+
+.main-title {
+  position: absolute;
+  bottom: 18%;
+  left: 6%;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: 800;
+  color: rgba(0,0,0,0.95);
+  line-height: 1;
+  letter-spacing: 1px;
+  z-index: 3;
+}
+
+.subtitle {
+  position: absolute;
+  bottom: 8%;
+  left: 8%;
+  font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: rgba(0,0,0,0.95);
+  z-index: 3;
+}
+
+.content {
+  padding: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.header-small {
+  font-size: clamp(0.65rem, 1.6vw, 0.8rem);
+  letter-spacing: 2px;
+  color: #444;
+  text-align: center;
+}
+
+.jp-title {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.description {
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  line-height: 1.7;
+}
+
+.bottom {
+  position: relative;
+  margin-top: auto;
+  padding: 6%;
+}
+
+.date-circle {
+  position: absolute;
+  width: clamp(160px, 42vw, 260px);
+  height: clamp(160px, 42vw, 260px);
+  background: rgba(255, 235, 0, 0.95);
+  border-radius: 50%;
+  bottom: -20%;
+  left: -10%;
+}
+
+.circle-text {
+  position: relative;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-weight: 700;
+  z-index: 2;
+  max-width: 220px;
+}
+
+.info {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+.info h3 {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  margin-bottom: 5px;
+}
+
+.logos {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: clamp(0.65rem, 2vw, 0.8rem);
+  color: #666;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+<div class="poster">
+
+  <div class="header">
+    <img src="https://drive.google.com/thumbnail?id=18aSFyggB0AufHow4apkD_5BNuxtlXkmR&sz=s4000" alt="Image from Google Drive" />
+    <div class="main-title">台湾AI旅⾏アシスタント</div>
+    <div class="subtitle">Nearby検索 → Googleカレンダー追加</div>
+  </div>
+
+  <div class="content">
+    <div class="header-small">SMART TRAVEL EXPERIENCE IN TAIWAN</div>
+
+    <div class="jp-title">観光スポット検索から予定登録まで、ワンステップ。</div>
+
+    <div class="description">
+      近くの観光地・レストラン・イベントをAIで検索。<br>
+      気になるスポットをそのまま<br>
+      <strong>Googleカレンダーに自動追加</strong>できます。<br><br>
+      旅行中のスケジュール管理を、もっと簡単に。
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="date-circle"></div>
+    <div class="circle-text">
+      ① Nearby検索<br>
+      ② 詳細確認<br>
+      ③ カレンダー追加
+    </div>
+
+    <div class="info">
+      <h3>対応機能</h3>
+      <div>・多言語対応（日本語OK）</div>
+      <div>・Googleカレンダー連携</div>
+      <div class="logos">
+        <span>AI Powered</span>
+        <span>Google Integrated</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Travel Drop Poster</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.poster {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 80px 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= BACKGROUND OUTLINE TYPE ================= */
+
+.bg-outline {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  font-size: 200px;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px #222;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ================= RED ACCENT BAR ================= */
+
+.accent-bar {
+  width: 60px;
+  height: 6px;
+  background: #ff2a2a;
+  margin-bottom: 40px;
+}
+
+/* ================= IMAGE GRID ================= */
+
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 70px;
+  position: relative;
+  z-index: 2;
+}
+
+/* misalignment */
+.image-grid div:nth-child(2) {
+  margin-top: 40px;
+}
+
+.image-block {
+  height: 380px;
+  overflow: hidden;
+}
+
+.image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================= DROP LABEL ================= */
+
+.drop-label {
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: #ff2a2a;
+  margin-bottom: 12px;
+}
+
+/* ================= MAIN TITLE ================= */
+
+.main-title {
+  font-size: 92px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 3px;
+  position: relative;
+}
+
+/* subtle glitch duplicate */
+.main-title::after {
+  content: "AI TRAVEL BOT";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  color: #ff2a2a;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* ================= JAPANESE TITLE ================= */
+
+.jp-title {
+  font-size: 54px;
+  font-weight: 800;
+  letter-spacing: 8px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+/* ================= TAGLINE ================= */
+
+.tagline {
+  font-size: 20px;
+  font-weight: 600;
+  max-width: 500px;
+  line-height: 1.4;
+  margin-bottom: 50px;
+}
+
+/* ================= QUERY BLOCK ================= */
+
+.query-block {
+  display: inline-block;
+  padding: 22px 28px;
+  font-size: 24px;
+  font-weight: 700;
+  border: 1px solid #333;
+  background: #0d0d0d;
+  margin-bottom: 60px;
+}
+
+/* ================= VERTICAL TEXT ================= */
+
+.vertical-text {
+  position: absolute;
+  right: 40px;
+  top: 160px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 16px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #777;
+}
+
+/* ================= QR BLOCK ================= */
+
+.qr-block {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 50px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #666;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+  <!-- Outline Background Typography -->
+  <div class="bg-outline">
+    ZHONGLI
+  </div>
+
+  <!-- Vertical Side Text -->
+  <div class="vertical-text">
+    桃園｜中壢｜独立旅行者｜AIガイド
+  </div>
+
+  <!-- Image Section -->
+  <div class="image-grid">
+    <div class="image-block">
+      <img src="https://drive.google.com/thumbnail?id=1QFlAhpdR4OgAEP5gcdSxcaNFO6b2KFYM&sz=s4000" />
+    </div>
+    <div class="image-block">
+      <img src="https://drive.google.com/thumbnail?id=1GXDpssqEmhGY3CvqhrQbN__O31jgOwU8&sz=s4000" />
+    </div>
+    <div class="image-block">
+      <img src="https://drive.google.com/thumbnail?id=1cb4dRLoHyxFvGjjnHbZMqWxM6OxNDmRv&sz=s4000" />
+    </div>
+  </div>
+
+  <div class="accent-bar"></div>
+
+  <div class="drop-label">
+    DROP 10 / 2026
+  </div>
+
+  <div class="main-title">
+   AI TRAVEL BOT
+  </div>
+
+  <div class="jp-title">
+    中壢ローカルガイド
+  </div>
+
+  <div class="tagline">
+    JAPANESE TRAVELERS.  
+    REAL-TIME LOCAL DISCOVERY.  
+    POWERED BY GOOGLE MAPS
+  </div>
+
+  <div class="query-block">
+        「中壢駅の近くでおすすめのグルメは？」
+  </div>
+
+  <div class="footer">
+    <div>GOOGLE MAPS NEARBY API</div>
+    <div>TAOYUAN CITY / TAIWAN</div>
+    <div class="qr-block">SCAN</div>
+  </div>
+
+</div>
+
+</body>
+</html>

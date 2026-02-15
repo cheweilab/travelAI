@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Travel Nearby Search Poster</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink-blue:#0b5e86;
+  --ink-muted:#6f8fa3;
+  --paper:#f1eadf;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:#d9d2c6;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+  font-family:"Noto Sans JP", sans-serif;
+}
+
+.poster{
+  width:900px;
+  aspect-ratio:1/1.55;
+  background:var(--paper);
+  display:grid;
+  grid-template-columns:60% 40%;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+
+.image-placeholder{
+  background:#e4ded4;
+  border-right:1px solid rgba(0,0,0,.06);
+}
+
+.image-placeholder img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.right{
+  padding:55px 42px;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  color:var(--ink-blue);
+}
+
+.topline{
+  font-size:11px;
+  letter-spacing:4px;
+  text-align:right;
+  color:var(--ink-muted);
+}
+
+.bars{
+  display:flex;
+  gap:8px;
+}
+
+.bars div{
+  width:16px;
+  height:85px;
+  background:var(--ink-blue);
+}
+
+.price{
+  background:var(--ink-blue);
+  color:white;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  width:fit-content;
+}
+
+.number{
+  font-family:"Oswald", sans-serif;
+  font-size:148px;
+  line-height:.9;
+  letter-spacing:2px;
+}
+
+.month{
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:13px;
+}
+
+.vertical-title{
+  writing-mode:vertical-rl;
+  text-orientation:upright;
+  font-family:"Noto Serif JP", serif;
+  font-size:54px;
+  font-weight:700;
+  letter-spacing:6px;
+}
+
+.vertical-body{
+  writing-mode:vertical-rl;
+  font-size:14px;
+  line-height:1.9;
+  color:#335b72;
+}
+
+.subtitle{
+  font-size:26px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.small-divider{
+  width:100%;
+  height:34px;
+  background:var(--ink-blue);
+}
+
+.footer{
+  font-size:11px;
+  line-height:1.7;
+  color:#335b72;
+  margin-top:auto;
+}
+
+.poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/paper-1.png");
+  opacity:.22;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+
+@media print{
+  body{ background:white; padding:0; }
+  .poster{ box-shadow:none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+  <!-- LEFT: IMAGE PLACEHOLDER -->
+  <div class="image-placeholder">
+    <img src="https://drive.google.com/thumbnail?id=1GXDpssqEmhGY3CvqhrQbN__O31jgOwU8&sz=s4000"
+         alt="Image from Google Drive">
+  </div>
+
+  <!-- RIGHT: EDITORIAL + TECH CONTENT -->
+  <div class="right">
+
+    <div class="topline">INTELLIGENT TRAVEL SYSTEM</div>
+
+    <div class="bars">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+    <div class="price">GOOGLE NEARBY SEARCH</div>
+
+    <div class="number">01</div>
+
+    <div class="month">LOCATION AWARE AI</div>
+
+    <div class="vertical-title">周辺検索</div>
+
+    <div class="vertical-body">
+      現在地または目的地を入力。<br>
+      半径・カテゴリ・人気度を解析し、<br>
+      周辺の観光地や体験を即時提示。<br>
+      AIが最適な選択肢を導き出します。
+    </div>
+
+    <div class="subtitle">ATTRACTIONS · FOOD · CULTURE</div>
+
+    <div class="small-divider"></div>
+
+    <div class="footer">
+      位置情報を理解するAIが、<br>
+      評価・カテゴリ・距離をもとに<br>
+      ローカルな魅力を可視化します。<br>
+      旅先での「次の一歩」を支援。
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

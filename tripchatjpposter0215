@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Taiwan Travel AI – Print Version</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Playfair+Display:ital@1&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* ========== PRINT SETUP ========== */
+@page { size: A2; margin: 0; }
+
+@media print { body { margin: 0; } }
+
+/* ========== BASE ========== */
+body {
+  margin: 0;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+.poster {
+  width: 420mm;
+  height: 594mm;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== HEADER ========== */
+.top-header {
+  text-align: center;
+  font-size: 9pt;
+  letter-spacing: 0.15em;
+  margin-top: 18mm;
+  color: #222;
+}
+
+/* ========== HERO IMAGE SECTION ========== */
+.hero {
+  position: relative;
+  margin-top: 12mm;
+}
+
+.hero img {
+  width: 100%;
+  display: block;
+  filter: grayscale(100%);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #E3F000;
+  mix-blend-mode: multiply;
+  opacity: 0.88;
+}
+
+/* ========== MAIN TITLE & SUBTITLE ========== */
+.main-title {
+  position: absolute;
+  bottom: 120mm;
+  left: 22mm;
+  font-size: 150pt;
+  font-weight: 900;
+  color: #E3F000;
+  letter-spacing: -0.04em;
+  line-height: 0.82;
+}
+
+.subtitle {
+  position: absolute;
+  bottom: 110mm;
+  left: 100mm;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 32pt;
+  color: #E3F000;
+  letter-spacing: 0.02em;
+}
+
+/* ========== JAPANESE HEADLINE ========== */
+.jp-headline {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 900;
+  font-size: 42pt;
+  letter-spacing: 0.25em;
+  margin: 18mm 22mm 6mm;
+}
+
+/* ========== DESCRIPTION ========== */
+.description {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11pt;
+  line-height: 1.9;
+  margin: 0 22mm;
+  max-width: 260mm;
+}
+
+/* ========== LARGE BLEED CIRCLE ========== */
+.circle {
+  position: absolute;
+  bottom: -160mm;
+  left: -160mm;
+  width: 420mm;
+  height: 420mm;
+  background: #E3F000;
+  border-radius: 50%;
+}
+
+/* ========== DATE TEXT ========== */
+.date-info {
+  position: absolute;
+  bottom: 85mm;
+  left: 60mm;
+  font-size: 22pt;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* ========== VENUE BLOCK ========== */
+.venue {
+  position: absolute;
+  bottom: 65mm;
+  right: 40mm;
+  text-align: right;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.venue-title {
+  font-size: 24pt;
+  font-weight: 800;
+  margin-bottom: 3mm;
+}
+
+.sponsors {
+  margin-top: 8mm;
+  font-size: 10pt;
+  display: flex;
+  gap: 12mm;
+  justify-content: flex-end;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+  <!-- Top Header -->
+  <div class="top-header">
+    台湾旅行をもっとスマートに。
+  </div>
+
+  <!-- Hero Image -->
+  <div class="hero">
+    <img src="taiwan-300dpi.jpg" alt="Taiwan Travel">
+    <div class="main-title">見つけて、<br>すぐ予定に。</div>
+    <div class="subtitle">近くを検索 → Googleカレンダーに自動追加</div>
+  </div>
+
+  <!-- Japanese Headline -->
+  <div class="jp-headline">
+    台湾旅行AIチャットボット
+  </div>
+
+  <!-- Description -->
+  <div class="description">
+    「台北101の近くで今夜行けるスポットは？」と聞くだけ。<br><br>
+    観光地・レストラン・イベントをその場で検索。<br>
+    選んだ場所をワンタップでGoogleカレンダーに追加できます。<br><br>
+    日時・場所・詳細情報も自動入力。<br>
+    アプリを切り替える必要はありません。
+  </div>
+
+  <!-- Decorative Circle -->
+  <div class="circle"></div>
+
+  <!-- Date / QR Call-to-Action -->
+  <div class="date-info">
+    今すぐ体験<br>
+    QRコードをスキャン
+  </div>
+
+  <!-- Venue / Sponsors -->
+  <div class="venue">
+    <div class="venue-title">Googleカレンダー連携対応</div>
+    台湾現地スポット検索対応
+    <div class="sponsors">
+      <span>日本語対応</span>
+      <span>無料</span>
+      <span>簡単操作</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

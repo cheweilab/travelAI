@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중리 AI 여행 도우미</title>
+
+<style>
+/* ===== Base Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN","Hiragino Sans",
+               "Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+  background: #ffffff;
+  color: #111;
+}
+
+/* ===== Container ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  gap: 40px;
+}
+
+/* ===== Right Vertical Main Title ===== */
+.vertical-title {
+  writing-mode: vertical-rl;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ===== Left Vertical Side Text ===== */
+.side-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.side-title {
+  writing-mode: vertical-rl;
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+  color: #555;
+}
+
+.thin-divider {
+  width: 2px;
+  height: 180px;
+  background: #ddd;
+}
+
+/* ===== AI Images Grid ===== */
+.ai-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+  align-content: start;
+}
+
+.ai-image {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  background: #f4f4f4;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* subtle poster rotation */
+.ai-image:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.ai-image:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.ai-image:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ===== Color Strip ===== */
+.color-strip {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 40px;
+}
+
+.tile {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+/* ===== Bottom Section ===== */
+.bottom-content {
+  grid-column: 1 / -1;
+  margin-top: 50px;
+}
+
+.bottom-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dates {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.small-text {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #444;
+  max-width: 700px;
+}
+
+.institution {
+  margin-top: 30px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 8px;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  .vertical-title,
+  .side-title {
+    writing-mode: horizontal-tb;
+    text-align: center;
+  }
+
+  .thin-divider {
+    display: none;
+  }
+
+  .bottom-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .institution {
+    text-align: left;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Left Vertical Section -->
+  <div class="side-wrapper">
+    <div class="side-title">
+      사진 찍고 바로 질문<br>
+      교통 시간 확인<br>
+      ┃AI 도우미┃
+    </div>
+    <div class="thin-divider"></div>
+  </div>
+
+  <!-- Center Images -->
+  <div class="ai-images">
+    <img src="https://via.placeholder.com/300x400" alt="AI 인터페이스 1" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="AI 인터페이스 2" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="사용자가 사진 촬영" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="컴퓨터 비전 처리" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="페리 시간표 응답" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="모바일 스크린샷 예시" class="ai-image">
+    <img src="https://via.placeholder.com/300x400" alt="AI 지도 추천" class="ai-image">
+  </div>
+
+  <!-- Right Vertical Title -->
+  <div class="vertical-title">
+    중리 AI<br>여행 도우미
+  </div>
+
+  <!-- Color Strip -->
+  <div class="color-strip">
+    <div class="tile" style="background:#4CAF50;"></div>
+    <div class="tile" style="background:#FFC107;"></div>
+    <div class="tile" style="background:#03A9F4;"></div>
+    <div class="tile" style="background:#E91E63;"></div>
+    <div class="tile" style="background:#9C27B0;"></div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="bottom-content">
+    <div class="bottom-main">
+      <span class="dates">중리 지역 전용</span>
+      <span class="subtitle">AI 여행 도우미 – 페리 시간표 안내</span>
+    </div>
+
+    <div class="small-text">
+      사진 또는 스크린샷으로 확인하고 싶은 교통 정보를 촬영하면,
+      AI가 분석하여 알려드립니다.<br>
+      페리 출발 시간, 도착 시간 등 여행 일정을 쉽게 계획할 수 있습니다.<br>
+      모바일과 데스크탑 스크린샷 모두 지원, 찍자마자 확인 가능.
+    </div>
+
+    <div class="institution">
+      <img src="https://via.placeholder.com/80x80" alt="AI 로고" class="logo"><br>
+      중리 스마트 여행<br>
+      AI Travel Assistant, Zhongli
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

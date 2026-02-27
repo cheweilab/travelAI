@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AIトリップチャット</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #06101a;
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* A2-like ratio */
+.poster {
+  width: 100vw;
+  height: 140vw;
+  max-height: 100vh;
+  max-width: calc(100vh * 0.7);
+  margin: auto;
+  position: relative;
+  background: #07121f;
+  overflow: hidden;
+}
+
+/* subtle grain */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Left info block */
+.left-text {
+  position: absolute;
+  top: 6%;
+  left: 8%;
+  width: 30%;
+  color: #f0f0f0;
+  font-size: 13px;
+  line-height: 2.2;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.left-text h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 1.5em;
+  letter-spacing: 0.15em;
+}
+
+/* Vertical main title */
+.right-title {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+}
+
+/* Vertical subtitle */
+.right-subtitle {
+  position: absolute;
+  top: 8%;
+  right: 16%;
+  writing-mode: vertical-rl;
+  font-size: 14px;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Organic neon shape */
+.blob-container {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 92%;
+  transform: translate(-50%, -50%);
+}
+
+.blob-container svg path {
+  fill: #2bdc82;
+}
+
+/* Painting area */
+.painting {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  width: 78%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  filter: contrast(1.05) brightness(0.95);
+}
+
+/* AI chat overlay bubbles */
+.chat-bubble {
+  position: absolute;
+  max-width: 260px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.8;
+  border-radius: 16px;
+}
+
+.b1 { top: 60%; left: 12%; }
+.b2 { top: 70%; right: 12%; }
+
+.caption {
+  position: absolute;
+  bottom: 4%;
+  left: 8%;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.5);
+}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="left-text">
+    <h3>都市夜景 × 人工知能</h3>
+    近くのコンビニを瞬時に検索。<br>
+    旅先でも、深夜でも。<br>
+    AIトリップチャットが<br>
+    あなたの現在地から<br>
+    最適な店舗を案内します。
+  </div>
+
+  <div class="right-title">
+    最寄りを、探せ。
+  </div>
+
+  <div class="right-subtitle">
+    AIトリップチャット
+  </div>
+
+  <!-- Organic shape -->
+  <div class="blob-container">
+    <svg viewBox="0 0 1200 600">
+      <path d="M120,320 C200,90 980,60 1080,260 C1180,480 450,600 220,520 C80,470 40,390 120,320 Z"/>
+    </svg>
+  </div>
+
+  <!-- Hopper-inspired late-night urban oil painting (licensed artwork placeholder) -->
+  <img src="your-oil-painting.jpg" class="painting" alt="夜の街角の油彩風イラスト">
+
+  <!-- AI chat bubbles -->
+  <div class="chat-bubble b1">
+    「現在地から一番近いコンビニは？」
+  </div>
+
+  <div class="chat-bubble b2">
+    「徒歩3分先にあります。24時間営業です。」
+  </div>
+
+  <div class="caption">
+    旅とテクノロジーの新しい関係
+  </div>
+
+</div>
+
+</body>
+</html>

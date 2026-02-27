@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>MEN SPA 展覧会ポスター</title>
+
+<!-- Japanese Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #d6a800;
+}
+
+.poster {
+  width: 800px;
+  height: 1200px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top Institutional Line */
+.top-line {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* Large Vertical Exhibition Title */
+.vertical-title {
+  position: absolute;
+  right: 40px;
+  top: 120px;
+  writing-mode: vertical-rl;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 120px;
+  font-weight: 900;
+  letter-spacing: 6px;
+}
+
+/* Secondary Vertical Text */
+.vertical-sub {
+  position: absolute;
+  right: 160px;
+  top: 200px;
+  writing-mode: vertical-rl;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+
+/* Center Artwork Frame */
+.frame {
+  position: absolute;
+  top: 240px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 720px;
+  background: #fff;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Left Vertical Description */
+.left-vertical-info {
+  position: absolute;
+  left: 40px;
+  top: 300px;
+  writing-mode: vertical-rl;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  line-height: 2;
+}
+
+/* Red Seal */
+.seal {
+  position: absolute;
+  top: 100px;
+  right: 240px;
+  width: 110px;
+  height: 110px;
+  background: #b30000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Info Block */
+.info-block {
+  position: absolute;
+  bottom: 180px;
+  left: 60px;
+  width: 420px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Divider */
+.divider {
+  position: absolute;
+  bottom: 140px;
+  left: 60px;
+  width: 680px;
+  height: 1px;
+  background: #000;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* QR */
+.qr {
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  width: 90px;
+  height: 90px;
+  border: 2px solid #000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+  <div class="top-line">
+    2026年 特別展 — 男性美容文化展
+  </div>
+
+  <div class="vertical-title">
+    男性スパ
+  </div>
+
+  <div class="vertical-sub">
+    儀式と洗練
+  </div>
+
+  <div class="seal">
+    限定
+  </div>
+
+  <div class="left-vertical-info">
+    規律・癒し・存在感・再生
+  </div>
+
+  <div class="frame">
+    <img src="american-gothic-modified.jpg" alt="Artwork">
+  </div>
+
+  <div class="info-block">
+    主な施術内容：<br>
+    ディープクレンジングフェイシャル<br>
+    ホットタオルシェービング<br>
+    ビアードコンディショニング<br>
+    デトックススキンセラピー<br>
+    ストレスリリーフマッサージ
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="footer">
+    123 Urban Street · (555) 123-4567 · MENSRITUALSPA.COM<br>
+    営業時間 10:00–20:00
+  </div>
+
+  <div class="qr"></div>
+
+</div>
+
+</body>
+</html>

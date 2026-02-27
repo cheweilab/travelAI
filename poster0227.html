@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MEN SPA — EXHIBITION POSTER</title>
+
+<style>
+body {
+  margin: 0;
+  background: #e1b000; /* saturated exhibition yellow */
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.poster {
+  width: 800px;
+  height: 1200px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* MASSIVE BACKGROUND TYPOGRAPHY */
+.massive-type {
+  position: absolute;
+  top: 120px;
+  left: -40px;
+  font-size: 220px;
+  font-weight: 900;
+  letter-spacing: -8px;
+  color: rgba(0,0,0,0.07);
+  line-height: 0.85;
+  z-index: 1;
+}
+
+/* DOMINANT VERTICAL TITLE */
+.vertical-dominant {
+  position: absolute;
+  right: 20px;
+  top: 80px;
+  writing-mode: vertical-rl;
+  font-size: 110px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  z-index: 4;
+}
+
+/* RED STAMP BLOCK */
+.stamp {
+  position: absolute;
+  top: 60px;
+  right: 180px;
+  width: 120px;
+  height: 120px;
+  background: #c40000;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  z-index: 5;
+}
+
+/* MICRO HEADER TEXT */
+.micro-header {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* CENTRAL ARTWORK FRAME */
+.frame {
+  position: absolute;
+  top: 240px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 720px;
+  background: #fff;
+  padding: 20px;
+  z-index: 3;
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* SIDE MICRO VERTICAL TEXT */
+.side-micro {
+  position: absolute;
+  left: 30px;
+  top: 300px;
+  writing-mode: vertical-rl;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+
+/* DENSE INFORMATION BLOCK */
+.info-block {
+  position: absolute;
+  bottom: 260px;
+  left: 80px;
+  width: 280px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* LARGE CTA TYPOGRAPHY */
+.cta-large {
+  position: absolute;
+  bottom: 160px;
+  right: 80px;
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+/* FOOTER DATA STRIP */
+.footer {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* QR BLOCK */
+.qr {
+  position: absolute;
+  bottom: 50px;
+  right: 60px;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #000;
+}
+
+/* THIN DIVIDER LINES FOR MUSEUM FEEL */
+.divider {
+  position: absolute;
+  top: 210px;
+  left: 60px;
+  width: 680px;
+  height: 1px;
+  background: #000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+  <div class="micro-header">
+    2026 RETROSPECTIVE — MODERN MEN'S GROOMING
+  </div>
+
+  <div class="massive-type">
+    CARE<br>RITUAL
+  </div>
+
+  <div class="vertical-dominant">
+    MEN SPA
+  </div>
+
+  <div class="stamp">
+    LIMITED<br>APPOINTMENTS
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="side-micro">
+    REFINEMENT · DISCIPLINE · PRESENCE · RESTORATION
+  </div>
+
+  <div class="frame">
+    <!-- Replace with your modified American Gothic -->
+    <img src="american-gothic-modified.jpg" alt="Hero Artwork">
+  </div>
+
+  <div class="info-block">
+    DEEP CLEANSING FACIAL<br>
+    HOT TOWEL SHAVE RITUAL<br>
+    BEARD SCULPTING<br>
+    DETOX SKIN THERAPY<br>
+    STRESS RELIEF MASSAGE
+  </div>
+
+  <div class="cta-large">
+    BOOK<br>NOW
+  </div>
+
+  <div class="footer">
+    123 Urban Street · (555) 123-4567 · MENSRITUALSPA.COM
+  </div>
+
+  <div class="qr"></div>
+
+</div>
+
+</body>
+</html>

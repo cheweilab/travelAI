@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>旅の味わい</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:#ddd;
+    display:flex;
+    justify-content:center;
+    padding:40px;
+    font-family:'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif;
+}
+
+/* --- Poster Base --- */
+.poster{
+    width:820px;
+    height:1150px;
+    position:relative;
+    padding:130px 100px;
+    color:#f2efe8; /* soft off white */
+    background:
+        radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        #1b3a57; /* 藍色 */
+    background-size:4px 4px;
+}
+
+/* Category */
+.category{
+    font-size:20px;
+    letter-spacing:10px;
+    opacity:0.85;
+}
+
+/* Main Title */
+.title{
+    font-size:100px;
+    font-weight:900;
+    margin-top:40px;
+    letter-spacing:6px;
+    line-height:1.1;
+}
+
+/* Vertical poetic text */
+.catch{
+    position:absolute;
+    right:90px;
+    top:300px;
+    writing-mode:vertical-rl;
+    font-size:24px;
+    line-height:2.4;
+    letter-spacing:3px;
+}
+
+/* Hero area - 生成色 */
+.hero{
+    position:absolute;
+    bottom:340px;
+    left:50%;
+    transform:translateX(-50%);
+    width:600px;
+    height:340px;
+    background:#f5efe2; /* 生成色 */
+    border-radius:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#b7aa95;
+    font-size:22px;
+}
+
+/* Description */
+.description{
+    position:absolute;
+    bottom:160px;
+    left:130px;
+    width:560px;
+    font-size:16px;
+    line-height:2.2;
+    letter-spacing:1px;
+}
+
+/* Slightly uneven ink stamp */
+.stamp{
+    position:absolute;
+    top:150px;
+    right:130px;
+    width:130px;
+    height:130px;
+    color:#e06a8b; /* 紅梅色 */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:700;
+    font-size:15px;
+    background:rgba(255,255,255,0.95);
+    border-radius:50%;
+    transform:rotate(-6deg);
+}
+
+/* Irregular outer ring */
+.stamp::before{
+    content:"";
+    position:absolute;
+    width:135px;
+    height:135px;
+    border:3px solid #e06a8b;
+    border-radius:50%;
+    opacity:0.9;
+    filter:blur(0.4px);
+}
+
+/* Slight inner ink variation */
+.stamp::after{
+    content:"";
+    position:absolute;
+    width:115px;
+    height:115px;
+    border:2px solid #e06a8b;
+    border-radius:50%;
+    opacity:0.6;
+    transform:rotate(4deg);
+}
+
+/* Side micro vertical note */
+.side-note{
+    position:absolute;
+    left:70px;
+    bottom:300px;
+    writing-mode:vertical-rl;
+    font-size:15px;
+    letter-spacing:2px;
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+    <div class="category">旅 と 知</div>
+
+    <div class="title">旅の味</div>
+
+    <div class="stamp">
+        新機能<br>写真解析
+    </div>
+
+    <div class="catch">
+        一皿に、<br>
+        土地の記憶あり。<br><br>
+        写真ひとつで、<br>
+        味わいを知る。
+    </div>
+
+    <div class="hero">
+        料理写真エリア
+    </div>
+
+    <div class="side-note">
+        AIが料理の由来を静かに解説。
+    </div>
+
+    <div class="description">
+        旅先で出会った料理を写真に収めるだけで、<br>
+        その料理名や食材、歴史背景を丁寧にまとめます。<br>
+        技術は控えめに、体験は豊かに。<br>
+        和菓子のように、やわらかく旅を支えます。
+    </div>
+
+</div>
+
+</body>
+</html>

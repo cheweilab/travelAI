@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>旅と味の記録 — AI Biennale</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:#cfcfcf;
+    display:flex;
+    justify-content:center;
+    padding:40px;
+    font-family:'Noto Sans JP','Helvetica Neue','Hiragino Kaku Gothic ProN',sans-serif;
+}
+
+/* --- POSTER BASE --- */
+.poster{
+    width:820px;
+    height:1150px;
+    background:#000;
+    position:relative;
+    overflow:hidden;
+    color:white;
+}
+
+/* --- SUBTLE GRAIN TEXTURE --- */
+.poster::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:3px 3px;
+    opacity:0.4;
+    pointer-events:none;
+}
+
+/* --- CROPPED BRUTALIST VERTICAL TITLE --- */
+.vertical-title{
+    position:absolute;
+    left:-60px; /* intentionally cropped */
+    top:-40px;
+    bottom:-40px;
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-size:120px;
+    font-weight:900;
+    letter-spacing:8px;
+    line-height:1;
+    opacity:0.95;
+}
+
+/* --- MAIN VISUAL AREA --- */
+.visual{
+    position:absolute;
+    left:140px;
+    top:0;
+    right:0;
+    height:760px;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:#555;
+}
+
+/* --- BOTTOM INFORMATION PANEL --- */
+.info{
+    position:absolute;
+    bottom:0;
+    left:140px;
+    right:0;
+    height:390px;
+    padding:60px;
+    border-top:1px solid #333;
+}
+
+/* Dates */
+.date{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+/* Institution (JP/EN) */
+.institution{
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:35px;
+    opacity:0.9;
+}
+
+/* Two-column institutional layout */
+.details{
+    display:flex;
+    justify-content:space-between;
+}
+
+.text-block{
+    width:62%;
+    font-size:14px;
+    line-height:1.9;
+    opacity:0.85;
+}
+
+.diagram-block{
+    width:30%;
+    height:130px;
+    border:1px solid #444;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+    <!-- Brutalist Cropped Vertical Title -->
+    <div class="vertical-title">
+        AI FOOD ARCHIVE
+    </div>
+
+    <!-- Main Visual -->
+    <div class="visual">
+        料理写真 / DATA VISUALIZATION
+    </div>
+
+    <!-- Bottom Info -->
+    <div class="info">
+
+        <div class="date">
+            2026.06.02 — 08.15
+        </div>
+
+        <div class="institution">
+            東京藝術大学大学美術館<br>
+            The University Art Museum, Tokyo University of the Arts
+        </div>
+
+        <div class="details">
+
+            <div class="text-block">
+                本展は、旅先で撮影された料理画像をAIが解析し、
+                食文化・地域性・歴史的背景を再構築する試みである。<br><br>
+                画像認識技術を用い、食の記憶をデータアーカイブとして再提示する。
+                観光体験と機械知能の交差点における、
+                新たな文化記録の可能性を探るプロジェクト。<br><br>
+                This exhibition explores AI-based food recognition
+                as a cultural archive system. Through machine vision,
+                travel memories are translated into structured narratives.
+            </div>
+
+            <div class="diagram-block">
+                SYSTEM MAP / AI MODEL DIAGRAM
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

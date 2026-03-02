@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣紅檜木アロマ メンズスマートスパ</title>
+
+<!-- Japanese + Modern Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0f1114;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* =========================
+   A3 LANDSCAPE CANVAS
+   (Scaled for screen)
+========================= */
+.poster {
+    width: 1400px;
+    height: 990px; /* A3 ratio */
+    background: linear-gradient(145deg, #14171c, #1c2026);
+    position: relative;
+    overflow: hidden;
+    color: #eaeaea;
+    padding: 80px;
+}
+
+/* Subtle tech grid overlay */
+.poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+/* =========================
+   HEADLINE (Vertical Right)
+========================= */
+.headline {
+    position: absolute;
+    right: 80px;
+    top: 100px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Noto Serif JP', serif;
+    letter-spacing: 0.12em;
+}
+
+.headline h1 {
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.sub {
+    margin-top: 40px;
+    font-size: 18px;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+}
+
+/* =========================
+   STORY COPY (Vertical Left)
+========================= */
+.story {
+    position: absolute;
+    left: 80px;
+    top: 150px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    line-height: 2.2;
+    letter-spacing: 0.08em;
+    opacity: 0.9;
+}
+
+/* =========================
+   CENTER VISUAL
+========================= */
+.visual {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.visual img {
+    width: 600px;
+    max-width: 100%;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+
+/* =========================
+   TECH FEATURE PANEL
+========================= */
+.tech-panel {
+    position: absolute;
+    bottom: 120px;
+    left: 120px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+}
+
+.tech-panel ul {
+    list-style: none;
+}
+
+.tech-panel li {
+    margin-bottom: 12px;
+    opacity: 0.85;
+}
+
+/* =========================
+   CTA BOX
+========================= */
+.cta {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    border: 1.5px solid #eaeaea;
+    padding: 20px 30px;
+    writing-mode: vertical-rl;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.15em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.cta:hover {
+    background: #eaeaea;
+    color: #111;
+}
+
+/* =========================
+   FOOTER BRAND LINE
+========================= */
+.brand {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    opacity: 0.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="poster">
+
+    <!-- Vertical Headline -->
+    <div class="headline">
+        <h1>
+            台灣紅檜木アロマの<br>
+            メンズスマートスパ
+        </h1>
+        <div class="sub">
+            AIチャット即時予約・Google近隣検索連携
+        </div>
+    </div>
+
+    <!-- Story -->
+    <div class="story">
+        森林の静寂とテクノロジーの融合。<br>
+        台湾紅檜木の深い香りが、<br>
+        心身を整える。<br>
+        AIチャットボットで空き状況確認、<br>
+        近くの店舗を瞬時に検索。
+    </div>
+
+    <!-- Center Illustration -->
+    <div class="visual">
+        <img src="taiwan-hinoki-illustration.jpg" alt="台灣紅檜木アロマテラピー">
+    </div>
+
+    <!-- Tech Feature Panel -->
+    <div class="tech-panel">
+        <ul>
+            <li>✓ AIチャットボット予約対応</li>
+            <li>✓ Google Nearby Search API 連携</li>
+            <li>✓ リアルタイム空き状況表示</li>
+            <li>✓ スマート決済対応</li>
+        </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        今すぐ近くのスパを探す
+    </div>
+
+    <!-- Brand Footer -->
+    <div class="brand">
+        <div>LOCAL MEN SPA</div>
+        <div>TAIWAN HINOKI AROMATHERAPY</div>
+    </div>
+
+</div>
+
+</body>
+</html>
